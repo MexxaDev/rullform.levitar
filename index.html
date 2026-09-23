@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Completa el formulario, gira la ruleta y envía tu resultado.">
+  <title>Resultados</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <main class="app">
+
+    <!-- PANTALLA 1: BIENVENIDA -->
+    <section id="welcome" class="screen" aria-labelledby="welcome-title">
+      <p class="screen__step">Bienvenido</p>
+      <h1 id="welcome-title" class="screen__title">Descubrí tu resultado</h1>
+      <p class="screen__text">
+        Respondé unas pocas preguntas y girá la ruleta para obtener tu número.
+      </p>
+      <button type="button" class="btn btn--primary" data-action="start">
+        COMENZAR
+      </button>
+    </section>
+
+    <!-- PANTALLA 2: FORMULARIO -->
+    <section id="form" class="screen" hidden aria-labelledby="form-title">
+      <p class="screen__step">Paso 1 de 3</p>
+      <h1 id="form-title" class="screen__title">Contanos sobre vos</h1>
+      <form id="quiz-form" class="quiz" novalidate>
+        <div id="questions"></div>
+        <p id="form-error" class="form-error" hidden>Respondé todas las preguntas para continuar.</p>
+        <button type="submit" class="btn btn--primary">CONTINUAR</button>
+      </form>
+    </section>
+
+    <!-- PANTALLA 3: RULETA -->
+    <section id="roulette" class="screen" hidden aria-labelledby="roulette-title">
+      <p class="screen__step">Paso 2 de 3</p>
+      <h1 id="roulette-title" class="screen__title">Girá la ruleta</h1>
+      <p class="screen__text">Tocá GIRAR para obtener tu número. Solo podés girar una vez.</p>
+
+      <div class="roulette">
+        <svg class="roulette__svg" viewBox="0 0 200 200" role="img" aria-label="Ruleta con 10 números">
+          <polygon class="roulette__pointer" points="100,6 108,20 92,20"></polygon>
+          <g id="wheel"></g>
+        </svg>
+      </div>
+
+      <p id="roulette-result" class="roulette__result" hidden>
+        Tu número es
+        <strong id="result-value"></strong>
+      </p>
+
+      <button id="spin-btn" type="button" class="btn btn--primary">
+        GIRAR
+      </button>
+    </section>
+
+  <!-- PANTALLA 4: RESULTADO -->
+    <section id="result" class="screen" hidden aria-labelledby="result-title">
+      <p class="screen__step">Paso 3 de 3</p>
+      <h1 id="result-title" class="screen__title">Tu resultado</h1>
+      <p id="result-big" class="result-big" role="status">7</p>
+      <p class="screen__text">Enviá tu resultado para participar.</p>
+      <p id="submit-error" class="form-error" role="alert" hidden>
+        No se pudo enviar tu resultado. Revisá tu conexión y volvé a intentar.
+      </p>
+      <button id="submit-btn" type="button" class="btn btn--primary" aria-busy="false">
+        ENVIAR RESULTADO
+      </button>
+    </section>
+
+    <!-- PANTALLA 6: CONFIRMACIÓN -->
+    <section id="success" class="screen" hidden aria-labelledby="success-title">
+      <p class="screen__step">¡Listo!</p>
+      <h1 id="success-title" class="screen__title">¡Listo!</h1>
+      <p class="screen__text">Tu resultado fue enviado correctamente.</p>
+    </section>
+
+  </main>
+
+  <noscript>
+    <p class="noscript">
+      Esta aplicación necesita JavaScript para funcionar. Por favor, activalo e intentá de nuevo.
+    </p>
+  </noscript>
+
+  <script src="js/app.js"></script>
+  <script src="js/form.js"></script>
+  <script src="js/roulette.js"></script>
+</body>
+</html>

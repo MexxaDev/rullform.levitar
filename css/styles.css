@@ -1,0 +1,307 @@
+/* ============================================
+   BASE — mobile first, sin librerías
+   ============================================ */
+
+:root {
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #5c5c5c;
+  --color-accent: #2f5d50;
+  --color-accent-hover: #244a40;
+  --color-border: #e0e0e0;
+  --color-focus: #b45309;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+
+  --radius: 8px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   ESTRUCTURA DE PANTALLAS (SPA)
+   ============================================ */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-2);
+}
+
+.screen {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .screen {
+    padding: var(--space-4) var(--space-3);
+  }
+}
+
+.screen[hidden] {
+  display: none;
+}
+
+.screen__step {
+  margin: 0 0 var(--space-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.screen__title {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.screen__text {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+.btn {
+  display: block;
+  width: 100%;
+  min-height: 3rem; /* área táctil cómoda */
+  padding: var(--space-1) var(--space-2);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn--primary {
+  color: #ffffff;
+  background: var(--color-accent);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.btn:disabled {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   FORMULARIO
+   ============================================ */
+
+.quiz {
+  text-align: left;
+}
+
+.question {
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  border: none;
+}
+
+.question__label {
+  margin-bottom: var(--space-1);
+  padding: 0;
+  font-weight: 600;
+}
+
+.question__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.question__option:hover {
+  border-color: var(--color-accent);
+}
+
+.question__option:focus-within {
+  border-color: var(--color-focus);
+  outline: 3px solid var(--color-focus);
+  outline-offset: -1px;
+}
+
+.question__input {
+  display: block;
+  width: 100%;
+  min-height: 3rem; /* área táctil cómoda */
+  padding: 0.5rem 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.question__input:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -1px;
+  border-color: var(--color-focus);
+}
+
+.question__option input {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  accent-color: var(--color-accent);
+}
+
+.question__option:has(input:checked) {
+  border-color: var(--color-accent);
+  background: #eef4f1;
+  font-weight: 600;
+}
+
+.question--invalid {
+  /* feedback que no depende solo del color: borde + mensaje */
+  border-left: 4px solid #b3261e;
+  padding-left: var(--space-1);
+}
+
+.question--invalid .question__label {
+  color: #b3261e;
+}
+
+.form-note {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+.form-error {
+  margin: 0 0 var(--space-2);
+  padding: var(--space-1);
+  border-radius: var(--radius);
+  background: #fdecea;
+  color: #8c1d18;
+  font-weight: 600;
+  text-align: left;
+}
+
+/* ============================================
+   RULETA
+   ============================================ */
+
+.roulette {
+  position: relative;
+  margin: 0 auto var(--space-3);
+  max-width: 300px;
+}
+
+.roulette__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.roulette__pointer {
+  fill: #b3261e;
+}
+
+#wheel {
+  will-change: transform;
+}
+
+#wheel text {
+  font-family: var(--font);
+}
+
+.roulette__result {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  background: #eef4f1;
+  color: var(--color-text);
+}
+
+.roulette__result strong {
+  display: block;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  color: var(--color-accent);
+}
+
+/* ============================================
+   RESULTADO
+   ============================================ */
+
+.result-big {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(4rem, 18vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+/* ============================================
+   NOSCRIPT
+   ============================================ */
+
+.noscript {
+  max-width: 32rem;
+  margin: var(--space-4) auto;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  text-align: center;
+}
