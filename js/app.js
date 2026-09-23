@@ -58,9 +58,10 @@ const SEND_TIMEOUT_MS = 15000;
  * resultado existente y no enviado anteriormente.
  */
 function canSubmit() {
-  const formComplete = QUESTIONS.every((q) =>
-    Object.prototype.hasOwnProperty.call(App.answers, q.id)
-  );
+  // Ignorar ítems informativos (type "note"): no son respuestas.
+  const formComplete = QUESTIONS
+    .filter((q) => q.type !== "note")
+    .every((q) => Object.prototype.hasOwnProperty.call(App.answers, q.id));
   const hasResult = App.result !== null && App.result !== undefined;
   return formComplete && hasResult && !App.submitted;
 }
@@ -114,7 +115,13 @@ function showSubmitError() {
 }
 
 async function submitResult() {
-  if (!canSubmit()) return;
+  if (!canSubmit()) {
+    // Defender contra fallas en silencio: nunca bloquear el envío sin avisar.
+    submitError.textContent =
+      "Faltan completar datos. Volvé al formulario o girá la ruleta.";
+    submitError.hidden = false;
+    return;
+  }
 
   submitError.hidden = true;
   setSubmitting(true);
@@ -131,6 +138,8 @@ async function submitResult() {
     App.showScreen(App.SCREENS.SUCCESS);
   } catch (err) {
     // ERROR: mostrar mensaje y permitir reintentar.
+    submitError.textContent =
+      "No se pudo enviar tu resultado. Revisá tu conexión y volvé a intentar.";
     showSubmitError();
     setSubmitting(false);
   }
