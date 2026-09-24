@@ -35,7 +35,7 @@ var ANSWER_KEYS = [
 // Límites de tamaño por campo (§6).
 var MAX_FIELD_LENGTH = 500;
 var MAX_SESSION_ID_LENGTH = 64;
-var MAX_RESULT_VALUE = 1000;
+var MAX_RESULT_LENGTH = 20;
 
 var HEADERS = ["Fecha", "Hora"]
   .concat(["Nombre", "Apellido", "Teléfono", "Pregunta 1", "Pregunta 2", "Pregunta 3", "Pregunta 4"])
@@ -77,9 +77,9 @@ function doPost(e) {
  * Lanza un Error si algo no es válido.
  */
 function validateAndBuildRow_(p) {
-  // Resultado numérico: entero positivo acotado.
-  var result = Number(p.result);
-  if (!Number.isInteger(result) || result < 1 || result > MAX_RESULT_VALUE) {
+  // Resultado (descuento de la ruleta): texto no vacío y acotado.
+  var result = sanitizeCell_(String(p.result || "").trim());
+  if (!result || result.length > MAX_RESULT_LENGTH) {
     throw new Error("resultado inválido");
   }
 

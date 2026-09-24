@@ -63,7 +63,7 @@ Fecha | Hora | Pregunta 1 | Pregunta 2 | Pregunta 3 | Pregunta 4 | Resultado | I
 Abrí una terminal y ejecutá (reemplazá `TU_URL`):
 
 ```powershell
-curl -X POST "TU_URL" --data "result=7&answer_nombre=Juan&answer_apellido=Perez&answer_telefono=1133884455&answer_p1=15+años&answer_p2=Ituzaingo+1418&answer_p3=Magenta+y+Blanco&answer_p4=Guemes+y+Avellaneda&sessionId=prueba-1"
+curl -X POST "TU_URL" --data "result=15%25+OFF&answer_nombre=Juan&answer_apellido=Perez&answer_telefono=1133884455&answer_p1=15+años&answer_p2=Ituzaingo+1418&answer_p3=Magenta+y+Blanco&answer_p4=Guemes+y+Avellaneda&sessionId=prueba-1"
 ```
 
 Respuesta esperada (HTTP 200):
@@ -73,7 +73,7 @@ Respuesta esperada (HTTP 200):
 ```
 
 Y en el Spreadsheet, en la pestaña `Respuestas`, aparece una fila nueva con
-fecha, hora, los 7 campos del formulario, el resultado `7` y el ID `prueba-1`.
+fecha, hora, los 7 campos del formulario, el descuento `15% OFF` y el ID `prueba-1`.
 
 Si falta algún campo, responde `{"ok":false,"error":"respuesta faltante: ..."}`.
 
@@ -94,7 +94,7 @@ Listo. A partir de ahora "ENVIAR RESULTADO" manda los datos a esta hoja.
 
 | Parámetro        | Tipo   | Descripción                                            |
 |------------------|--------|--------------------------------------------------------|
-| `result`         | número | Resultado de la ruleta (entero 1–1000)                 |
+| `result`         | texto  | Descuento de la ruleta, ej. `15% OFF` (máx. 20 caracteres) |
 | `answer_nombre`  | texto  | Nombre (obligatorio)                                   |
 | `answer_apellido`| texto  | Apellido (obligatorio)                                 |
 | `answer_telefono`| texto  | Teléfono de contacto (obligatorio)                     |

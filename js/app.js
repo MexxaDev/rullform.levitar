@@ -48,7 +48,7 @@ document.querySelectorAll(".screen__title").forEach((title) => {
 const submitButton = document.getElementById("submit-btn");
 const submitError = document.getElementById("submit-error");
 // URL de la aplicación web de Apps Script (SETUP.md, paso 18).
-const SEND_URL = "https://script.google.com/macros/s/AKfycbz8xWPkQZXQ3rWUkMzVamV_RHUivyjjD6-foffaMpj6SEQMTP-YlBG2rRnqIIqCTv493Q/exec";
+const SEND_URL = "https://script.google.com/macros/s/AKfycbwOSMwLyfDm8CW_vEg-Ixtlm-jE9FTMHuL14JP29MYkQ1McQiFcCySA1X2to9pmuJaKow/exec";
 
 // Tiempo máximo de espera antes de mostrar ERROR y permitir reintentar.
 const SEND_TIMEOUT_MS = 15000;

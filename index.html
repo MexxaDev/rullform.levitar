@@ -16,7 +16,7 @@
       <p class="screen__step">Bienvenido</p>
       <h1 id="welcome-title" class="screen__title">Descubrí tu resultado</h1>
       <p class="screen__text">
-        Respondé unas pocas preguntas y girá la ruleta para obtener tu número.
+        Respondé unas pocas preguntas y girá la ruleta para obtener tu descuento.
       </p>
       <button type="button" class="btn btn--primary" data-action="start">
         COMENZAR
@@ -38,7 +38,7 @@
     <section id="roulette" class="screen" hidden aria-labelledby="roulette-title">
       <p class="screen__step">Paso 2 de 3</p>
       <h1 id="roulette-title" class="screen__title">Girá la ruleta</h1>
-      <p class="screen__text">Tocá GIRAR para obtener tu número. Solo podés girar una vez.</p>
+      <p class="screen__text">Tocá GIRAR para obtener tu descuento. Solo podés girar una vez.</p>
 
       <div class="roulette">
         <svg class="roulette__svg" viewBox="0 0 200 200" role="img" aria-label="Ruleta con 10 números">
@@ -48,7 +48,7 @@
       </div>
 
       <p id="roulette-result" class="roulette__result" hidden>
-        Tu número es
+        Obtuviste
         <strong id="result-value"></strong>
       </p>
 
@@ -60,9 +60,9 @@
   <!-- PANTALLA 4: RESULTADO -->
     <section id="result" class="screen" hidden aria-labelledby="result-title">
       <p class="screen__step">Paso 3 de 3</p>
-      <h1 id="result-title" class="screen__title">Tu resultado</h1>
+      <h1 id="result-title" class="screen__title">Tu descuento</h1>
       <p id="result-big" class="result-big" role="status">7</p>
-      <p class="screen__text">Enviá tu resultado para participar.</p>
+      <p class="screen__text">Enviá tu descuento para participar.</p>
       <p id="submit-error" class="form-error" role="alert" hidden>
         No se pudo enviar tu resultado. Revisá tu conexión y volvé a intentar.
       </p>

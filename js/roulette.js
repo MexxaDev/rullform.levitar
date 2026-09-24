@@ -14,7 +14,7 @@
 "use strict";
 
 // Configuración de la ruleta — editar acá.
-const SECTOR_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const SECTOR_VALUES = ["5% OFF", "10% OFF", "15% OFF", "20% OFF", "25% OFF"];
 const SECTOR_FILLS = ["#2f5d50", "#e9edea"]; // se alternan por sector
 
 const SPIN_FULL_TURNS = 5; // vueltas completas para un giro con ritmo
@@ -43,7 +43,7 @@ function buildWheel() {
 
   document
     .querySelector(".roulette__svg")
-    .setAttribute("aria-label", `Ruleta con ${SECTOR_VALUES.length} números`);
+    .setAttribute("aria-label", `Ruleta con ${SECTOR_VALUES.length} resultados`);
 
   SECTOR_VALUES.forEach((value, i) => {
     // --- Cuña: sector centrado en el tope (±half), luego rotado a su lugar.
@@ -75,7 +75,7 @@ function buildWheel() {
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "central");
     text.setAttribute("fill", i % 2 === 0 ? "#ffffff" : "#1a1a1a");
-    text.setAttribute("font-size", "16");
+    text.setAttribute("font-size", "18");
     text.setAttribute("font-weight", "700");
     text.textContent = value;
     wheelEl.appendChild(text);
