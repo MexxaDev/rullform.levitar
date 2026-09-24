@@ -15,7 +15,7 @@
 
 // Configuración de la ruleta — editar acá.
 const SECTOR_VALUES = ["5% OFF", "10% OFF", "15% OFF", "20% OFF", "25% OFF"];
-const SECTOR_FILLS = ["#2f5d50", "#e9edea"]; // se alternan por sector
+const SECTOR_FILLS = ["#cca6a3", "#ffffff"]; // se alternan por sector
 
 const SPIN_FULL_TURNS = 5; // vueltas completas para un giro con ritmo
 const SPIN_DURATION_MS = 4200;
@@ -74,9 +74,9 @@ function buildWheel() {
     text.setAttribute("y", ny.toFixed(2));
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "central");
-    text.setAttribute("fill", i % 2 === 0 ? "#ffffff" : "#1a1a1a");
+    text.setAttribute("fill", "#292322");
     text.setAttribute("font-size", "18");
-    text.setAttribute("font-weight", "700");
+    text.setAttribute("font-weight", "600");
     text.textContent = value;
     wheelEl.appendChild(text);
   });

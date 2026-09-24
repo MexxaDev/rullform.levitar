@@ -3,21 +3,31 @@
    ============================================ */
 
 :root {
-  --color-bg: #f7f7f5;
+  /* Paleta VENGA — rosa empolvado dominante + blanco puro */
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #5c5c5c;
-  --color-accent: #2f5d50;
-  --color-accent-hover: #244a40;
-  --color-border: #e0e0e0;
-  --color-focus: #b45309;
+  --color-text: #292322;
+  --color-text-muted: #6d5f5d;
+  --color-accent: #cca6a3;          /* rosa empolvado dominante (logo) */
+  --color-accent-hover: #bf9a97;
+  --color-accent-strong: #8f6560;   /* rosa profundo: indicadores/focus (contraste OK) */
+  --color-accent-strong-hover: #75514c;
+  --color-accent-tint: #f6edec;     /* fondos/áreas rosadas suaves */
+  --color-row-hover: #f9f2f1;       /* hover de filas */
+  --color-bg-ios: #f2f2f7;          /* canvas del formulario estilo iOS */
+  --color-border: #ebe6e5;          /* hairline */
+  --color-focus: #8f6560;
 
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
   --space-4: 2.5rem;
 
-  --radius: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 1px 3px rgba(26, 18, 26, 0.06);
+  --font-serif: "Bodoni Moda", "DM Serif Display", Didot, "Bodoni MT", Georgia,
+    "Times New Roman", serif;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -34,6 +44,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   font-family: var(--font);
   font-size: 1.0625rem;
   line-height: 1.6;
@@ -43,15 +56,30 @@ body {
 }
 
 /* ============================================
+   LOGO / MARCA
+   ============================================ */
+
+.brand {
+  text-align: center;
+  padding: var(--space-3) var(--space-2) 0;
+}
+
+.brand__logo {
+  display: block;
+  width: clamp(90px, 22vw, 130px);
+  height: auto;
+  margin: 0 auto;
+}
+
+/* ============================================
    ESTRUCTURA DE PANTALLAS (SPA)
    ============================================ */
 
 .app {
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
-  min-height: 100dvh;
   max-width: 32rem;
   margin: 0 auto;
   padding: var(--space-4) var(--space-2);
@@ -60,7 +88,7 @@ body {
 .screen {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 12px;
   padding: var(--space-3) var(--space-2);
   text-align: center;
 }
@@ -75,25 +103,47 @@ body {
   display: none;
 }
 
+.screen:not([hidden]) {
+  animation: screen-in 0.35s ease both;
+}
+
 .screen__step {
   margin: 0 0 var(--space-2);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-strong);
 }
 
 .screen__title {
   margin: 0 0 var(--space-2);
+  font-family: var(--font-serif);
   font-size: clamp(1.75rem, 6vw, 2.25rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.screen__title::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  margin: var(--space-2) auto 0;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
 }
 
 .screen__text {
   margin: 0 0 var(--space-4);
   color: var(--color-text-muted);
+}
+
+/* Pantalla del formulario: canvas gris iOS sobre tarjetas blancas */
+#form.screen {
+  background: var(--color-bg-ios);
+  border-color: transparent;
 }
 
 /* ============================================
@@ -105,23 +155,29 @@ body {
   width: 100%;
   min-height: 3rem; /* área táctil cómoda */
   padding: var(--space-1) var(--space-2);
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   border: none;
-  border-radius: var(--radius);
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: background-color 0.18s ease, transform 0.18s ease;
 }
 
 .btn--primary {
-  color: #ffffff;
+  color: var(--color-text);
   background: var(--color-accent);
 }
 
 .btn--primary:hover:not(:disabled) {
   background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn--primary:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btn:disabled {
@@ -136,7 +192,7 @@ body {
 }
 
 /* ============================================
-   FORMULARIO
+   FORMULARIO — estilo iOS (agrupado, tarjetas)
    ============================================ */
 
 .quiz {
@@ -150,91 +206,141 @@ body {
 }
 
 .question__label {
+  display: block;
   margin-bottom: var(--space-1);
   padding: 0;
   font-weight: 600;
 }
 
-.question__option {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
-  margin-bottom: var(--space-1);
-  padding: var(--space-1);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-
-.question__option:hover {
-  border-color: var(--color-accent);
-}
-
-.question__option:focus-within {
-  border-color: var(--color-focus);
-  outline: 3px solid var(--color-focus);
-  outline-offset: -1px;
-}
-
-.question__input {
+/* Campos de texto libres: tarjeta blanca redondeada */
+.question--text .question__input {
   display: block;
   width: 100%;
   min-height: 3rem; /* área táctil cómoda */
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem;
   font-family: inherit;
   font-size: 1rem;
   color: var(--color-text);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 12px;
 }
 
-.question__input:focus {
+.question--text .question__input:focus {
   outline: 3px solid var(--color-focus);
   outline-offset: -1px;
-  border-color: var(--color-focus);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(204, 166, 163, 0.4);
 }
 
-.question__option input {
+/* Grupo multiple choice: "inset grouped list" de iOS */
+fieldset.question {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+fieldset.question .question__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  min-height: 3rem; /* igual altura que los inputs de texto */
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+fieldset.question .question__option + .question__option {
+  border-top: 1px solid var(--color-border);
+}
+
+fieldset.question .question__option:first-child {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+fieldset.question .question__option:last-child {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+fieldset.question .question__option:hover {
+  background: var(--color-row-hover);
+}
+
+fieldset.question .question__option:focus-within {
+  outline: 3px solid var(--color-focus);
+  outline-offset: -3px;
+}
+
+.question__option span {
+  flex: 1;
+}
+
+.question__option::after {
+  content: "✓";
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--color-text);
+  opacity: 0;
+}
+
+/* checked: rosa empolvado dominante + texto oscuro + ✓ */
+fieldset.question .question__option:has(input:checked) {
+  background: var(--color-accent);
+  font-weight: 600;
+}
+
+fieldset.question .question__option:has(input:checked)::after {
+  opacity: 1;
+}
+
+fieldset.question .question__option input {
   flex-shrink: 0;
   width: 1.25rem;
   height: 1.25rem;
   margin: 0;
-  accent-color: var(--color-accent);
-}
-
-.question__option:has(input:checked) {
-  border-color: var(--color-accent);
-  background: #eef4f1;
-  font-weight: 600;
-}
-
-.question--invalid {
-  /* feedback que no depende solo del color: borde + mensaje */
-  border-left: 4px solid #b3261e;
-  padding-left: var(--space-1);
+  accent-color: var(--color-accent-strong);
 }
 
 .question--invalid .question__label {
   color: #b3261e;
 }
 
+.question--text.question--invalid .question__input {
+  border-color: #b3261e;
+  background: #fdecea;
+}
+
+fieldset.question.question--invalid {
+  border-color: #b3261e;
+  background: #fdecea;
+}
+
 .form-note {
   margin: 0 0 var(--space-3);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
   color: var(--color-text-muted);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
 }
 
 .form-error {
   margin: 0 0 var(--space-2);
-  padding: var(--space-1);
-  border-radius: var(--radius);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-lg);
   background: #fdecea;
   color: #8c1d18;
   font-weight: 600;
   text-align: left;
+}
+
+#quiz-form .btn {
+  margin-top: var(--space-1);
 }
 
 /* ============================================
@@ -254,7 +360,7 @@ body {
 }
 
 .roulette__pointer {
-  fill: #b3261e;
+  fill: var(--color-accent-strong);
 }
 
 #wheel {
@@ -262,22 +368,26 @@ body {
 }
 
 #wheel text {
-  font-family: var(--font);
+  font-family: var(--font-serif);
+  font-weight: 500;
 }
 
 .roulette__result {
   margin: 0 0 var(--space-3);
   padding: var(--space-2);
-  border-radius: var(--radius);
-  background: #eef4f1;
+  border-radius: var(--radius-lg);
+  background: var(--color-accent-tint);
   color: var(--color-text);
+  animation: fade-in 0.4s ease both;
 }
 
 .roulette__result strong {
   display: block;
+  font-family: var(--font-serif);
   font-size: 2.5rem;
+  font-weight: 500;
   line-height: 1.1;
-  color: var(--color-accent);
+  color: var(--color-accent-strong);
 }
 
 /* ============================================
@@ -285,11 +395,14 @@ body {
    ============================================ */
 
 .result-big {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-serif);
   font-size: clamp(4rem, 18vw, 6.5rem);
-  font-weight: 800;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   line-height: 1;
-  color: var(--color-accent);
+  color: var(--color-accent-strong);
+  animation: pop-in 0.45s ease both;
 }
 
 /* ============================================
@@ -301,7 +414,56 @@ body {
   margin: var(--space-4) auto;
   padding: var(--space-2);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 12px;
   background: var(--color-surface);
   text-align: center;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen:not([hidden]),
+  .roulette__result,
+  .result-big {
+    animation: none;
+  }
+
+  .btn,
+  .question__option {
+    transition: none;
+    transform: none;
+  }
 }
